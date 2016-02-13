@@ -1,7 +1,7 @@
 # habitat-production
 
 
-# User API calls
+# User API
 
 
 # Create
@@ -27,7 +27,7 @@ Response:
 }
 
 
-# Login:
+# Login
 
 https://habitatapi.appspot.com/_ah/api/users/1.00/login
 
@@ -49,6 +49,7 @@ Response:
  "etag": "\"hy2vmhrmW-q5hSOLd9JtUOsfNhA/MlKgzs3mipC6HCm9K8cl7KB6TIY\""
 }
 
+
 # Get User
 
 Sent:
@@ -65,6 +66,7 @@ Response:
  "etag": "\"hy2vmhrmW-q5hSOLd9JtUOsfNhA/hi43JQLrKXcMvLW61YsVh3hQfuM\""
 }
 
+
 # Check if User Exists
 
 Sent:
@@ -79,5 +81,7 @@ Response:
  "etag": "\"hy2vmhrmW-q5hSOLd9JtUOsfNhA/6e5BwS9UeU-AeBF8jH73QVhlRgc\""
 }
 
+
+# Cars API
 
 

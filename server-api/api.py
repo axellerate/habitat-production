@@ -91,5 +91,73 @@ class UsersApi(remote.Service):
             return Response(success = True)
         return Response(success = False)
 
+class CarObject(messages.Message):
+    make = messages.StringField(1)
+    model = messages.StringField(2)
+    year = messages.StringField(3)
+    car_id = messages.StringField(4)
+    user_token = messages.StringField(5)
 
-application = endpoints.api_server([UsersApi])
+
+@endpoints.api(name = 'cars', version = api_version, auth=AUTH_CONFIG,
+               description = 'Car Resources')
+class CarsApi(remote.Service):
+
+
+
+    @endpoints.method(CarObject, Response,
+                        name = 'create',
+                        path = 'create',
+                        http_method = 'POST')
+    def create(self, request):
+        response = Cars.save(request.car_id, request.user_token)
+        if response:
+            return Response(message = "Car saved successfully", success = True, errors = "")
+        return Response(message = "The car was not saved successfully.", success = False)
+
+
+class EmissionsObject(messages.Message):
+    make = messages.StringField(1)
+    model = messages.StringField(2)
+    year = messages.StringField(3)
+    car_id = messages.StringField(4)
+    user_token = messages.StringField(5)
+
+class DistanceObject(messages.Message):
+    user_token = messages.StringField(1)
+    distance = messages.StringField(2)
+    date = messages.StringField(3)
+
+class EmissionsObject(messages.Message):
+    distance = messages.StringField(1)
+    emissions = messages.StringField(2)
+    date = messages.StringField(3)
+
+class EmissionsObjects(messages.Message):
+    emissions = messages.MessageField(EmissionsObject, 1, repeated = True)
+
+@endpoints.api(name = 'emissions', version = api_version, auth=AUTH_CONFIG,
+               description = 'Emission Resources')
+class EmissionsApi(remote.Service):
+
+
+    @endpoints.method(DistanceObject, Response,
+                        name = 'add_emissions',
+                        path = 'add_emissions',
+                        http_method = 'POST')
+    def add_emissions(self, request):
+        response = Emissions.add_emissions(request.user_token, request.distance)
+        if response:
+            return Response(message = "", success = True, errors = "")
+        return Response(message = "", success = False)
+
+    @endpoints.method(DistanceObject, EmissionsObjects,
+                        name = 'get_emissions',
+                        path = 'get_emissions',
+                        http_method = 'POST')
+    def get_emissions(self, request):
+        response = Emissions.get_emissions(request.user_token)
+        all_emissions = [EmissionsObject(distance = str(d.distance), date = d.date.strftime("%B %d, %Y"), emissions = str(d.emissions)) for d in response]
+        return EmissionsObjects(emissions = all_emissions)
+
+application = endpoints.api_server([UsersApi, CarsApi, EmissionsApi])
