@@ -28,7 +28,6 @@ public class RegisterOne extends Activity {
         if (passwordText.getText().toString().equals(retypePasswordText.getText().toString())) {
 
             Intent i = new Intent(RegisterOne.this, RegisterTwo.class);
-            i.putExtra("email", emailText.);
             startActivity(i);
         }
     }

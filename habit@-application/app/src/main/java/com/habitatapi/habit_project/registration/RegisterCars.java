@@ -124,11 +124,9 @@ public class RegisterCars extends Activity {
         }
         if (getIntent().getExtras().getBoolean("motor")) {
             Intent i = new Intent(RegisterCars.this, RegisterMotorcycle.class);
-            i.putExtra("userInfo", u);
             startActivity(i);
         } else {
             Intent i = new Intent(RegisterCars.this, RegisterHome.class);
-            i.putExtra("userInfo", u);
             i.putExtra("carInfo", selectedCar);
             startActivity(i);
         }

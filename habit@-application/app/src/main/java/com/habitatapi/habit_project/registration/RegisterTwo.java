@@ -24,13 +24,11 @@ public class RegisterTwo extends Activity {
         if (carCheck.isChecked()) {
             User u = (User) getIntent().getExtras().get("userInfo");
             Intent i = new Intent(RegisterTwo.this, RegisterCars.class);
-            i.putExtra("userInfo", u);
             i.putExtra("motor", bikeCheck.isChecked());
             startActivity(i);
         } else if (motorCheck.isChecked()) {
             User u = (User) getIntent().getExtras().get("userInfo");
             Intent i = new Intent(RegisterTwo.this, RegisterMotorcycle.class);
-            i.putExtra("userInfo", u);
             startActivity(i);
         } else {
             Intent i = new Intent(RegisterTwo.this, RegisterHome.class);

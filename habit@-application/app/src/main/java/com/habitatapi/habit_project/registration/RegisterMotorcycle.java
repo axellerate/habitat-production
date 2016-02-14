@@ -29,7 +29,6 @@ public class RegisterMotorcycle extends Activity {
         i.putExtra("motorInfo", selectedtext);
         User u = (User) getIntent().getExtras().get("userInfo");
         Car c = (Car) getIntent().getExtras().get("carInfo");
-        i.putExtra("userInfo", u);
         if(c != null)
         {
             i.putExtra("carInfo", c);
