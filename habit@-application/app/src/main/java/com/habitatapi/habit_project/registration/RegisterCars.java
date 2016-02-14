@@ -13,8 +13,10 @@ import android.widget.Spinner;
 
 import com.habitatapi.habit_project.R;
 import com.habitatapi.habit_project.cars.AddCar;
+import com.habitatapi.habit_project.cars.Car;
 import com.habitatapi.habit_project.cars.CarAsyncTask;
 import com.habitatapi.habit_project.cars.VehicleIdAsyncTask;
+import com.habitatapi.habit_project.user.User;
 
 public class RegisterCars extends Activity {
 
@@ -30,8 +32,6 @@ public class RegisterCars extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_cars);
-        Intent i = getIntent();
-        flag = i.getIntExtra("flag", 0);
         year = (Spinner) findViewById(R.id.year_spinner);
         manufacture = (Spinner) findViewById(R.id.manufacturers_spinner);
         model = (Spinner) findViewById(R.id.models_spinner);
@@ -109,16 +109,28 @@ public class RegisterCars extends Activity {
 
             }
         });
-        if(flag == 1)
-        {
-            /*
-            TODO: Get user information from data base and set the dropdown to those values
-             */
-        }
     }
 
-    public void onClickNextRegisterCars(View view){
-        Intent i = new Intent(RegisterCars.this, RegisterMotorcycle.class);
-        startActivity(i);
+    public void onClickNextRegisterCars(View view) {
+        User u = (User) getIntent().getExtras().get("userInfo");
+        Spinner s4 = (Spinner) findViewById(R.id.model_type_spinner);
+
+        Car selectedCar = new Car();
+        for (Car c : vid.getVehicle()) {
+            if (c.getCarType().equals(s4.getSelectedItem().toString())) {
+                selectedCar = c;
+                break;
+            }
+        }
+        if (getIntent().getExtras().getBoolean("motor")) {
+            Intent i = new Intent(RegisterCars.this, RegisterMotorcycle.class);
+            i.putExtra("userInfo", u);
+            startActivity(i);
+        } else {
+            Intent i = new Intent(RegisterCars.this, RegisterHome.class);
+            i.putExtra("userInfo", u);
+            i.putExtra("carInfo", selectedCar);
+            startActivity(i);
+        }
     }
 }

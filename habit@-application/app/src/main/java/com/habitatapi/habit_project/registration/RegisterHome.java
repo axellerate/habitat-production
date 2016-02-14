@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.habitatapi.habit_project.Dashboard;
 import com.habitatapi.habit_project.R;
+import com.habitatapi.habit_project.user.User;
+import com.habitatapi.habit_project.user.UserAsyncTask;
 
 public class RegisterHome extends Activity {
 
@@ -17,6 +19,9 @@ public class RegisterHome extends Activity {
     }
 
     public void onClickNextRegisterHome(View view){
+        User u = (User) getIntent().getExtras().get("userInfo");
+        UserAsyncTask uat = new UserAsyncTask();
+        uat.execute(u);
         Intent i = new Intent(RegisterHome.this, Dashboard.class);
         startActivity(i);
     }
